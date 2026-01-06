@@ -172,6 +172,13 @@ Example request body:
 
 ---
 
+## Email example
+
+<img width="1777" height="497" alt="image" src="https://github.com/user-attachments/assets/2a1cd3ce-d14d-494b-9bf7-4e222f1704d8" />
+
+
+---
+
 ## Normalization Notes (High-Level)
 
 - CSV columns are mapped to a standard internal schema (e.g., `transaction_code → id`, `timestamp → date`, `amount_brl → amount`).
