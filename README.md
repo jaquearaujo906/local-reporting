@@ -172,8 +172,12 @@ Example request body:
 
 ---
 
-## Email example
+## Email Notification 
 
+This section shows an example of the automated email notification sent by the system
+after a successful execution, as required in the case.
+
+Below is a screenshot of a real email sent during local execution.
 <img width="1777" height="497" alt="image" src="https://github.com/user-attachments/assets/2a1cd3ce-d14d-494b-9bf7-4e222f1704d8" />
 
 
