@@ -14,9 +14,6 @@ venv/
 # Env files
 .env
 
-# Outputs (opcional: você pode escolher versionar um exemplo)
-outputs/
-
 # OS / editor
 .DS_Store
 .vscode/
