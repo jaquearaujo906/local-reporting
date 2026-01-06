@@ -1,30 +1,28 @@
-# Local Peporting Mini-Sytem (Python)
+# Local Reporting Mini-System (Python)
 
+This project implements a **local reporting mini-system** that reads a CSV file of transactions, normalizes and validates the data, generates a **single monthly XML report**, and optionally sends an **automated email** with a concise technical summary and alerts.
 
-This project reads a CSV of transactions, normalizes/validates the dara, generates a **single monthly XML report**, and can send an **automated email** with a concise techinical summary + alerts and the XML attched. Everything runs locally.
+The system runs entirely **locally** and supports **two execution modes**:
+- **CLI (Command Line Interface)** — required
+- **Local REST API (FastAPI)** — chosen option
 
-It supports **two invocation modes**:
-    **CLI**
-    **Local REST API** using FastAPI 
-
+---
 
 ## Features
 
-    - Read input CSV ('transactions.csv')
-    - Normalize+ validate data (including mixed timestamp formats)
-    - Generate one XML report per month:
-        - `outputs/<YYYYMM>/report.xml`
-    - Generate summary metrics JSON
-        - `outputs/<YYYYMM>/summary.json`
-    - Send email via SMTP woth:
-        - Subject: `Transactional Report — YYYY-MM`
-        - Body: technical summary + alerts
-        - Attachment: `report.xml`
-    - REST endpoint to trigger execution locally
+- Read input CSV (`transactions.csv`)
+- Normalize and validate transaction data
+- Handle mixed timestamp formats safely
+- Generate a single XML report per month
+- Generate summary metrics in JSON format
+- Send email notification with XML attachment
+- Expose a REST endpoint to trigger execution locally
 
+---
 
 ## Project Structure
 
+```text
 local-reporting/
 ├── app.py
 ├── requirements.txt
@@ -48,35 +46,36 @@ local-reporting/
     └── summary.py
 
 
-## Requirements
+Requirements
 
- - Python 3.10+ (works on Windows/macOS/Linux)
- - Internet access is not required for processing (only for SMTP email delivery)
+Python 3.10+
 
-## Setup
-1) Create and activate a virtual environment
+Local execution (no cloud dependencies)
 
-    Windows (PowerShell):
+Setup
+1. Create and activate a virtual environment
 
-    python -m venv .venv
-    .venv\Scripts\activate
+Windows (PowerShell):
 
-2) Install dependencies
-    pip install -r requirements.txt
+python -m venv .venv
+.venv\Scripts\activate
 
-3) Configure environment variables
+2. Install dependencies
+pip install -r requirements.txt
 
-    Copy .env.example to .env and fill values:
+3. Configure environment variables
 
-    copy .env.example .env
+Copy the example file:
+
+copy .env.example .env
 
 
-Example .env:
+Edit .env with your SMTP credentials:
 
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your_email@gmail.com
-SMTP_PASS=your_app_password**
+SMTP_PASS=your_app_password
 EMAIL_FROM=your_email@gmail.com
 EMAIL_TO=destination_email@gmail.com
 
@@ -84,33 +83,36 @@ DEFAULT_CURRENCY=BRL
 MIN_AMOUNT=1.00
 
 
-**NOTE: If using Gmail, you typically need an App Password (requires 2-Step Verification). Do not commit .env to Git.
+Note: If using Gmail, an App Password is required.
+Never commit .env to the repository.
 
-# Run via CLI (Required)
+Run via CLI (Required)
 
-Generate report for a given month:
+Generate a report for a given month:
 
 python app.py --month=2023-08 --input=./data/transactions.csv --output=./outputs
 
 
-Generate report and send email:
+Generate a report and send email notification:
 
 python app.py --month=2023-08 --send-email
 
-Run via REST API (Chosen Option)
-
-Start the local API:
-
+Run via REST API (FastAPI)
+Start the API server
 python -m uvicorn src.api:app --reload --port 8000
 
+Swagger UI
 
-Swagger UI:
+Access the interactive API documentation:
 
 http://127.0.0.1:8000/docs
 
-Trigger execution:
+Trigger execution
+
+Endpoint:
 
 POST /run?month=YYYY-MM
+
 
 Example request body:
 
@@ -120,54 +122,75 @@ Example request body:
   "send_email": false
 }
 
-# Outputs
+Outputs
 
-outputs/<YYYYMM>/report.xml
-A single XML file containing all reportable transactions for the month.
+Generated files:
 
-outputs/<YYYYMM>/summary.json
-Metrics used for the technical email summary (e.g., rows_in, rows_out, invalid_date, etc.).
+outputs/<YYYYMM>/report.xml — XML report with all valid transactions
 
-## Normalization Notes
+outputs/<YYYYMM>/summary.json — metrics and alerts summary
 
-    - CSV columns are mapped to a standard internal schema (e.g., transaction_code → id, timestamp → date, amount_brl → amount).
+Input CSV Notes
 
-    - Mixed timestamp formats are supported (e.g., DD-MM-YYYY and YYYY-MM-DD 0:00:00).
+The input CSV does not fully match the target schema.
+Some columns are mapped or derived during normalization:
 
-    - Transactions are filtered by the requested month (YYYY-MM).
+transaction_code → id
 
-    - Amount is converted to numeric.
+timestamp → date
 
-    - MerchantId is cleaned to keep digits only.
+amount_brl → amount
 
-    - Metrics are produced for observability and email alerts.
+category → type
 
-## AI Usage (Mandatory)
+Timestamp Handling
 
-    - AI assistance was used during development to speed up implementation and improve robustness. It was used to:
+The CSV contains mixed timestamp formats, including:
 
-    - Propose project structure and module responsibilities
+DD-MM-YYYY
 
-    - Draft boilerplate for CLI, REST API, XML generation, and SMTP email sending
+YYYY-MM-DD 0:00:00 (single-digit hour)
 
-    - Suggest normalization rules and metrics for the summary report
+To avoid invalid dates, timestamps are normalized before parsing by:
 
-    - Help identify and fix edge cases during debugging (e.g., mixed timestamp formats and single-digit hour 0:00:00)
+Padding single-digit hours
 
-    - Improve documentation clarity
+Applying explicit parsing strategies for each format
 
-## Key Prompts Used (examples)
+AI Usage (Mandatory)
 
-    - “Design a local reporting system with CLI + REST execution, CSV normalization, XML output, and email notification.”
+AI assistance was used as a development accelerator, not as a replacement for decision-making.
 
-    - “Write a robust pandas normalization function with month filtering, validation, duplicate handling, and summary metrics.”
+How AI was used
 
-    - “Generate XML output using ElementTree with a TransactionsReport root and Transaction entries.”
+Project structure and module separation
 
-    - “Implement SMTP email sending with a concise technical summary and XML attachment.”
+Boilerplate generation for CLI, REST API, XML generation, and SMTP email
 
-    - “Propose a robust strategy to parse mixed timestamps like 02-08-2023 and 2023-08-12 0:00:00.”
+Suggestions for normalization rules and summary metrics
 
+Debugging runtime errors and edge cases (e.g., mixed timestamps)
 
-## Author 
-Jaqueline Araujo Xavier
+Human validation
+
+All business rules, data mappings, and edge cases were manually validated through local execution and inspection of generated outputs.
+
+Key Prompts Used (Examples)
+
+“Design a local reporting system with CLI and REST execution.”
+
+“Write a robust pandas normalization pipeline with validation and metrics.”
+
+“Generate XML using ElementTree with a TransactionsReport root.”
+
+“Implement SMTP email sending with attachment and summary.”
+
+“Propose a strategy to parse mixed timestamp formats safely.”
+
+Security Notes
+
+Do not commit .env or credentials
+
+Revoke and regenerate SMTP App Passwords if exposed
+
+Generated outputs can be ignored or versioned selectively
