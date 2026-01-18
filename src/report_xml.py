@@ -27,6 +27,9 @@ def write_report(tree: ET.ElementTree, output_dir: str, month: str) -> str:
     out_folder = Path(output_dir) / yyyymm
     out_folder.mkdir(parents=True, exist_ok=True)
 
+    # Formatar XML com indentação
+    ET.indent(tree, space="  ")
+
     out_path = out_folder / "report.xml"
     tree.write(out_path, encoding="utf-8", xml_declaration=True)
     return str(out_path)

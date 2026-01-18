@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TransactionsReport month="2023-01" generated_at="2026-01-18T19:50:33.209100Z">
+  <Transaction id="TX-690726">
+    <Status>approved</Status>
+    <Date>2023-01-14</Date>
+    <Amount currency="BRL">7179.96</Amount>
+    <Type>CREDIT</Type>
+    <MerchantId>15669384000134</MerchantId>
+    <Network>3</Network>
+    <Category>CREDIT</Category>
+  </Transaction>
+  <Transaction id="TX-932292">
+    <Status>approved</Status>
+    <Date>2023-01-13</Date>
+    <Amount currency="BRL">5041.08</Amount>
+    <Type>DEBIT</Type>
+    <MerchantId>74993928000136</MerchantId>
+    <Network>2</Network>
+    <Category>DEBIT</Category>
+  </Transaction>
+  <Transaction id="TX-746222">
+    <Status>approved</Status>
+    <Date>2023-01-26</Date>
+    <Amount currency="BRL">6444.24</Amount>
+    <Type>DEBIT</Type>
+    <MerchantId>31402712000149</MerchantId>
+    <Network>2</Network>
+    <Category>DEBIT</Category>
+  </Transaction>
+  <Transaction id="TX-948045">
+    <Status>approved</Status>
+    <Date>2023-01-31</Date>
+    <Amount currency="BRL">234.14</Amount>
+    <Type>DEBIT</Type>
+    <MerchantId>19870859000163</MerchantId>
+    <Network>1</Network>
+    <Category>DEBIT</Category>
+  </Transaction>
+  <Transaction id="TX-260715">
+    <Status>approved</Status>
+    <Date>2023-01-01</Date>
+    <Amount currency="BRL">3539.28</Amount>
+    <Type>DEBIT</Type>
+    <MerchantId>59566180000137</MerchantId>
+    <Network>1</Network>
+    <Category>DEBIT</Category>
+  </Transaction>
+  <Transaction id="TX-438864">
+    <Status>approved</Status>
+    <Date>2023-01-14</Date>
+    <Amount currency="BRL">9788.55</Amount>
+    <Type>DEBIT</Type>
+    <MerchantId>36841757000191</MerchantId>
+    <Network>3</Network>
+    <Category>DEBIT</Category>
+  </Transaction>
+  <Transaction id="TX-779999">
+    <Status>approved</Status>
+    <Date>2023-01-28</Date>
+    <Amount currency="BRL">3106.33</Amount>
+    <Type>CREDIT</Type>
+    <MerchantId>83700312000142</MerchantId>
+    <Network>1</Network>
+    <Category>CREDIT</Category>
+  </Transaction>
+</TransactionsReport>

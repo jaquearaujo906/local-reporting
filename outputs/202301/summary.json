@@ -1,0 +1,11 @@
+{
+  "month": "2023-01",
+  "rows_in": 60,
+  "rows_out": 7,
+  "invalid_date": 0,
+  "invalid_amount": 0,
+  "invalid_status": 0,
+  "invalid_type": 0,
+  "below_threshold_excluded": 0,
+  "duplicates_removed": 0
+}
